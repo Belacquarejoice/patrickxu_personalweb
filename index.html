@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patrick Xu</title>
+  <meta name="description" content="Patrick Xu. A marketer who acts fast but makes it last.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Cpath d='M6 22a10 10 0 0 1 20 0z' fill='%23f68353'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v=6">
+</head>
+<body>
+
+  <!-- 拓印滤镜：给 class="stamp" 的图形加上手工印刷的颗粒、缺墨和轻微错位 -->
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="stamp" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="4" result="speck"/>
+        <feColorMatrix in="speck" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.8 2.5" result="speckA"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="11" result="press"/>
+        <feColorMatrix in="press" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.5" result="pressA"/>
+        <feComposite in="speckA" in2="pressA" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="mask"/>
+        <feComposite in="SourceGraphic" in2="mask" operator="in" result="inked"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="2" result="warp"/>
+        <feDisplacementMap in="inked" in2="warp" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <!-- 等高线地图的层间阴影（P2） -->
+      <filter id="topoShadow" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+        <feDropShadow dx="5" dy="7" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <nav class="nav" id="nav" aria-label="Primary"></nav>
+
+  <!--
+    七页结构（内容全部由 assets/js/content.js 提供，main.js 负责渲染）
+    P1 hero       半调球体 + Patrick Xu
+    P2 explore    I Explore.    3D 等高线地图 + 经历路线
+    P3 influence  I Influence.  文件夹堆
+    P4 create     I Create.     可旋转线框球
+    P5 climb      I Climb.      几何攀岩墙
+    P6 vibe       I Vibe.       三栏撕纸拼贴
+    P7 contact    结束页        联系方式铭牌
+  -->
+  <main>
+    <section class="page page--hero" id="hero" aria-label="Intro"></section>
+    <section class="page page--explore" id="explore" aria-labelledby="explore-title"></section>
+    <section class="page page--influence" id="influence" aria-labelledby="influence-title"></section>
+    <section class="page page--create" id="create" aria-labelledby="create-title"></section>
+    <section class="page page--climb" id="climb" aria-labelledby="climb-title"></section>
+    <section class="page page--vibe" id="vibe" aria-labelledby="vibe-title"></section>
+    <section class="page page--contact" id="contact" aria-labelledby="contact-title"></section>
+  </main>
+
+  <!-- 编辑模式工具条（导航 Edit 或 Shift + E 打开） -->
+  <div class="editbar" id="editbar" role="region" aria-label="编辑模式" hidden>
+    <span class="editbar__state">编辑模式</span>
+    <span class="editbar__hint">点文字直接改，点图片框换图</span>
+    <span class="editbar__count"></span>
+    <button class="chip" type="button" data-act="export">导出 content.js</button>
+    <button class="chip" type="button" data-act="reset">清除修改</button>
+    <button class="chip chip--solid" type="button" data-act="done">完成</button>
+  </div>
+
+  <!-- P2 等高线地图用 d3-contour 计算等高线（只用这一个外部库） -->
+  <script src="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-contour@4.0.2/dist/d3-contour.min.js"></script>
+  <script src="assets/js/content.js?v=6"></script>
+  <script src="assets/js/main.js?v=6"></script>
+</body>
+</html>
